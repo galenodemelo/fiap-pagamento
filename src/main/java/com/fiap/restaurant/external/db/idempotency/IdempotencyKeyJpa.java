@@ -6,7 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "IdempotencyKey")
-public class IdempotencyKey {
+public class IdempotencyKeyJpa {
 
     private String id;
     private String payload;

@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 @EnableScan
-public interface IdempotencyKeyRepository extends CrudRepository<IdempotencyKey, String> {
+public interface IdempotencyKeyRepository extends CrudRepository<IdempotencyKeyJpa, String> {
 
-    Optional<IdempotencyKey> findById(String id);
+    Optional<IdempotencyKeyJpa> findById(String id);
 }
