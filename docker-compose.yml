@@ -20,3 +20,14 @@ services:
       AWS_SECRET_ACCESS_KEY: local
     depends_on:
       - database
+
+  app:
+    container_name: fiap-restaurant-app-pagamento
+    depends_on:
+      - database
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/tmp/fiap-restaurant-app/pagamento/app:/var/html/fiap-restaurant-app/pagamento
