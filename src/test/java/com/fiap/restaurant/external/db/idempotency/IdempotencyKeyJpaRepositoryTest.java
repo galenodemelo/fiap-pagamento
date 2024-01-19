@@ -32,7 +32,7 @@ public class IdempotencyKeyJpaRepositoryTest {
 
         IdempotencyKeyJpa createdIdempotencyKeyJpa = idempotencyKeyRepository.save(idempotencyKeyJpa);
 
-        assertThat(createdIdempotencyKeyJpa.getId()).isNotEmpty();
+        assertThat(createdIdempotencyKeyJpa.getId()).isNotNull();
         assertThat(createdIdempotencyKeyJpa.getPayload()).isEqualTo(idempotencyKeyJpa.getPayload());
         assertThat(createdIdempotencyKeyJpa.getResponseBody()).isEqualTo(idempotencyKeyJpa.getResponseBody());
         assertThat(createdIdempotencyKeyJpa.getResponseStatus()).isEqualTo(idempotencyKeyJpa.getResponseStatus());
