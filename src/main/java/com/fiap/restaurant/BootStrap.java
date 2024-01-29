@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
 import com.fiap.restaurant.external.db.idempotency.IdempotencyKeyJpa;
+import com.fiap.restaurant.external.db.payment.PaymentJpa;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class BootStrap {
     }
 
     private void createDynamoDBTables() {
-        final Class<?>[] dynamoTableList = new Class[]{IdempotencyKeyJpa.class};
+        final Class<?>[] dynamoTableList = new Class[]{IdempotencyKeyJpa.class, PaymentJpa.class};
 
         for (Class<?> dynamoTable : dynamoTableList) {
             CreateTableRequest tableRequest = dynamoDBMapper.generateCreateTableRequest(dynamoTable);
