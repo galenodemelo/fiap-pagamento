@@ -1,3 +1,5 @@
+server:
+  port: 8081
 aws:
   region: sa-east-1
   dynamodb:
