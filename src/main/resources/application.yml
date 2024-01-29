@@ -2,7 +2,7 @@ server:
   port: 8080
 aws:
   region: us-east-1
-#  dynamodb:
-#    endpoint: http://localhost:8000/
-#    accessKey: local
-#    secretKey: local
+  dynamodb:
+    endpoint: http://localhost:8000/
+    accessKey: local
+    secretKey: local
