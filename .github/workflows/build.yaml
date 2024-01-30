@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on:
   push:
@@ -23,4 +23,4 @@ jobs:
           distribution: corretto
 
       - name: Compile Gradle
-        run: ./gradlew build
+        run: ./gradlew bootJar
