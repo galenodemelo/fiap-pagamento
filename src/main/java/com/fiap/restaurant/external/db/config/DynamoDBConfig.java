@@ -51,11 +51,12 @@ public class DynamoDBConfig {
 //        AmazonDynamoDBClientBuilder clientBuilder = AmazonDynamoDBClientBuilder.standard();
 //        clientBuilder.withCredentials(credentialsProvider);
 //        clientBuilder.setEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, awsRegion));
-//
+
 //        return clientBuilder.build();
 
         return AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, awsRegion))
                 .withRegion(Regions.fromName(awsRegion)).build();
     }
 
