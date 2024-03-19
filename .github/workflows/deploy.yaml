@@ -14,9 +14,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ASIAVNIY2D7VSNFWLLOB
-          aws-secret-access-key: 88MLXrPCW2rCbJjvhEbtFhgI+PhMjOiRNQzgI4cf
-          aws-session-token: FwoGZXIvYXdzEE4aDJMURPnqACpP9qxznyLFAc0adQyYtmZVNNMSfNff+pYDTokrtal/q0AkY0xu2L605Wz+CE3B6rwUj7Gtam66xbvjjbrwUdiW8qCkH1wQp8LhtPH7GCwC172tav+1xUTJ7KhEtd1/NQiROBKARkuQJwhAQRHZpFQLfNuprRD6LxoKpJ5Mv9fd+Hpl3oLtt+0iwe7BGLRZSGIWUwue88Ifhkb+D++WRqRHVbRxgvVPgMiaNZjwsiNtyTT+Gi3gTM47ssuUMbojEkinv7a+xm2LXYk80IuaKO+Q4K0GMi0JgYXW/OQzbpWZE51ahuRuLLxhVQCihbSL1/nwiTz8jwnV8bYzzjopP9ApOZU=
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
 
       - name: Checkout code
