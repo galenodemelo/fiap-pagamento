@@ -19,9 +19,7 @@ public class PaymentController {
     }
 
     public static void save(SavePaymentDTO savePaymentDTO, PaymentDatabaseConnection paymentDatabaseConnection) {
-        MessageBroker messageBroker = new SqsMessageBroker("response-q");
-
-        IPaymentGateway paymentGateway = new PaymentGateway(paymentDatabaseConnection, messageBroker);
+        IPaymentGateway paymentGateway = new PaymentGateway(paymentDatabaseConnection);
         PaymentUseCase.save(savePaymentDTO, paymentGateway);
     }
 }

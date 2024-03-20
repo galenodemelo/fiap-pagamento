@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.restaurant.entity.Payment;
 import com.fiap.restaurant.external.db.payment.PaymentJpa;
 import com.fiap.restaurant.external.messagebroker.MessageBroker;
+import com.fiap.restaurant.external.messagebroker.SqsMessageBroker;
 import com.fiap.restaurant.types.db.PaymentDatabaseConnection;
 import com.fiap.restaurant.types.dto.service.ServiceResponseQueueDTO;
 import com.fiap.restaurant.types.dto.service.ServiceResponseQueueType;
@@ -19,11 +20,8 @@ public class PaymentGateway implements IPaymentGateway {
 
     private final PaymentDatabaseConnection paymentDatabaseConnection;
 
-    private final MessageBroker messageBroker;
-
-    public PaymentGateway(PaymentDatabaseConnection paymentDatabaseConnection, MessageBroker messageBroker) {
+    public PaymentGateway(PaymentDatabaseConnection paymentDatabaseConnection) {
         this.paymentDatabaseConnection = paymentDatabaseConnection;
-        this.messageBroker = messageBroker;
     }
 
     @Override
@@ -41,7 +39,8 @@ public class PaymentGateway implements IPaymentGateway {
             Map.of("orderId", payment.getOrderId())
         ));
 
-        this.messageBroker.send(jsonData);
+        MessageBroker messageBroker = new SqsMessageBroker("response-q");
+        messageBroker.send(jsonData);
 
         return PaymentMapper.INSTANCE.toPayment(paymentJpa);
     }
