@@ -1,6 +1,5 @@
 package com.fiap.restaurant.controller;
 
-import com.fiap.restaurant.gateway.PaymentGateway;
 import com.fiap.restaurant.types.db.PaymentDatabaseConnection;
 import com.fiap.restaurant.types.dto.SavePaymentDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +24,7 @@ class PaymentControllerTest {
     @BeforeEach
     void setup() {
         savePaymentDTO = new SavePaymentDTO();
-        savePaymentDTO.setCustomerId(9999L);
+        savePaymentDTO.setOrderId(9999L);
         savePaymentDTO.setValue(BigDecimal.TEN);
     }
 

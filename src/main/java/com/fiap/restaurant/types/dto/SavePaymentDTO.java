@@ -6,7 +6,7 @@ public class SavePaymentDTO {
 
     private BigDecimal value;
 
-    private Long customerId;
+    private Long orderId;
 
     public BigDecimal getValue() {
         return value;
@@ -16,11 +16,11 @@ public class SavePaymentDTO {
         this.value = value;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }

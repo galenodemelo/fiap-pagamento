@@ -28,7 +28,7 @@ public class PaymentStepDef {
     @When("saving a new payment")
     public void savingANewPayment() {
         savePaymentDTO = new SavePaymentDTO();
-        savePaymentDTO.setCustomerId(999999999L);
+        savePaymentDTO.setOrderId(999999999L);
         savePaymentDTO.setValue(BigDecimal.TEN);
 
         response = given().contentType(DEFAULT_CONTENT_TYPE).body(savePaymentDTO)
@@ -44,8 +44,8 @@ public class PaymentStepDef {
                 .body("message", not(emptyOrNullString()));
     }
 
-    @When("saving a new payment without customer id")
-    public void savingANewPaymentWithoutCustomerId() {
+    @When("saving a new payment without order id")
+    public void savingANewPaymentWithoutOrderId() {
         savePaymentDTO = new SavePaymentDTO();
         savePaymentDTO.setValue(BigDecimal.TEN);
 

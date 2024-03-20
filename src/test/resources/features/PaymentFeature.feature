@@ -5,5 +5,5 @@ Feature: API - Payments
     Then must save the payment
 
   Scenario: Save an invalid payment
-    When saving a new payment without customer id
+    When saving a new payment without order id
     Then must return an error message

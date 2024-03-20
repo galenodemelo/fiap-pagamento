@@ -35,7 +35,7 @@ class PaymentUseCaseIT {
     @BeforeEach
     void setup() {
         savePaymentDTO = new SavePaymentDTO();
-        savePaymentDTO.setCustomerId(9999L);
+        savePaymentDTO.setOrderId(9999L);
         savePaymentDTO.setValue(BigDecimal.TEN);
 
         paymentGateway = new PaymentGateway(paymentDatabaseConnection);
@@ -51,7 +51,7 @@ class PaymentUseCaseIT {
                 .isPresent()
                 .hasValueSatisfying(paymentJpa -> {
                     assertThat(paymentJpa.getId()).isNotNull();
-                    assertThat(paymentJpa.getCustomerId()).isEqualTo(payment.getCustomerId());
+                    assertThat(paymentJpa.getOrderId()).isEqualTo(payment.getOrderId());
                     assertThat(paymentJpa.getValue()).isEqualTo(payment.getValue());
                     assertThat(payment.getDateCreated()).isNotNull().isBeforeOrEqualTo(new Date());
                 });

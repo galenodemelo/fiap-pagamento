@@ -21,14 +21,14 @@ class PaymentRepositoryTest {
     @Test
     void mustSavePayment() {
         PaymentJpa paymentJpa = new PaymentJpa();
-        paymentJpa.setCustomerId(99999L);
+        paymentJpa.setOrderId(99999L);
         paymentJpa.setValue(BigDecimal.TEN);
         paymentJpa.setDateCreated(new Date());
 
         PaymentJpa createdPaymentJpa = paymentRepository.save(paymentJpa);
 
         assertThat(createdPaymentJpa.getId()).isNotNull().isInstanceOf(UUID.class);
-        assertThat(createdPaymentJpa.getCustomerId()).isEqualTo(paymentJpa.getCustomerId());
+        assertThat(createdPaymentJpa.getOrderId()).isEqualTo(paymentJpa.getOrderId());
         assertThat(createdPaymentJpa.getValue()).isEqualTo(paymentJpa.getValue());
         assertThat(createdPaymentJpa.getDateCreated()).isEqualTo(paymentJpa.getDateCreated()).isBeforeOrEqualTo(new Date());
     }
