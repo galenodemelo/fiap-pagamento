@@ -17,7 +17,13 @@ public class PaymentInboundQueueGateway {
 
     @SqsListener("payment-q")
     public void receiveMessage(SavePaymentDTO savePaymentDTO) {
-        System.out.println("Recebendo mensagem de pagamento" + savePaymentDTO);
+        System.out.println("Recebendo mensagem de pagamento para o pedido " + savePaymentDTO.getOrderId());
         PaymentController.save(savePaymentDTO, paymentDatabaseConnection);
+    }
+
+    @SqsListener("payment-refund-q")
+    public void receiveRefundMessage(SavePaymentDTO savePaymentDTO) {
+        System.out.println("Recebendo mensagem de estorno para o pedido " + savePaymentDTO.getOrderId());
+        PaymentController.refund(savePaymentDTO, paymentDatabaseConnection);
     }
 }

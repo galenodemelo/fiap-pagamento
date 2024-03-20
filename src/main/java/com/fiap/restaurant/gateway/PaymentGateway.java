@@ -47,14 +47,23 @@ public class PaymentGateway implements IPaymentGateway {
     }
 
     @Override
-    public Payment fail(Payment payment) throws JsonProcessingException {
+    public void fail(Payment payment) throws JsonProcessingException {
         String jsonData = toJson(new ServiceResponseQueueDTO(
                 ServiceResponseQueueType.ORDER_PAYMENT_FAILED,
                 Map.of("orderId", payment.getOrderId())
         ));
 
         messageBroker.send(jsonData);
-        return null;
+    }
+
+    @Override
+    public void refund(Payment payment) throws JsonProcessingException {
+        String jsonData = toJson(new ServiceResponseQueueDTO(
+                ServiceResponseQueueType.ORDER_PAYMENT_REFUNDED,
+                Map.of("orderId", payment.getOrderId())
+        ));
+
+        messageBroker.send(jsonData);
     }
 
     private String toJson(ServiceResponseQueueDTO data) throws JsonProcessingException {
