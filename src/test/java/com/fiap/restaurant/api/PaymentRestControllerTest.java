@@ -39,7 +39,7 @@ class PaymentRestControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(paymentRestController).build();
 
         savePaymentDTO = new SavePaymentDTO();
-        savePaymentDTO.setCustomerId(9999L);
+        savePaymentDTO.setOrderId(9999L);
         savePaymentDTO.setValue(BigDecimal.TEN);
     }
 

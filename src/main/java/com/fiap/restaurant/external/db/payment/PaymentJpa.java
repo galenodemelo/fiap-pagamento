@@ -15,7 +15,7 @@ import java.util.UUID;
 public class PaymentJpa {
 
     private UUID id;
-    private Long customerId;
+    private Long orderId;
     private BigDecimal value;
     private Date dateCreated;
 
@@ -30,12 +30,12 @@ public class PaymentJpa {
     }
 
     @DynamoDBAttribute
-    public Long getCustomerId() {
-        return customerId;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     @DynamoDBAttribute

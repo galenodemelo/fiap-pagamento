@@ -17,7 +17,7 @@ public class PaymentGateway implements IPaymentGateway {
     @Override
     public Payment save(Payment payment) {
         PaymentJpa paymentJpa = new PaymentJpa();
-        paymentJpa.setCustomerId(payment.getCustomerId());
+        paymentJpa.setOrderId(payment.getOrderId());
         paymentJpa.setValue(payment.getValue());
 
         paymentJpa = this.paymentDatabaseConnection.save(paymentJpa);

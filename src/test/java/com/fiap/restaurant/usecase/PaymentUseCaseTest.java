@@ -32,7 +32,7 @@ class PaymentUseCaseTest {
     @BeforeEach
     void setup() {
         savePaymentDTO = new SavePaymentDTO();
-        savePaymentDTO.setCustomerId(9999L);
+        savePaymentDTO.setOrderId(9999L);
         savePaymentDTO.setValue(BigDecimal.TEN);
 
         paymentGateway = new PaymentGateway(paymentDatabaseConnection);
@@ -43,14 +43,14 @@ class PaymentUseCaseTest {
         Payment payment = PaymentUseCase.save(savePaymentDTO, paymentGateway);
 
         assertThat(payment.getId()).isNotNull().isInstanceOf(UUID.class);
-        assertThat(payment.getCustomerId()).isEqualTo(savePaymentDTO.getCustomerId());
+        assertThat(payment.getOrderId()).isEqualTo(savePaymentDTO.getOrderId());
         assertThat(payment.getValue()).isEqualTo(savePaymentDTO.getValue());
         assertThat(payment.getDateCreated()).isNotNull().isBeforeOrEqualTo(new Date());
     }
 
     @Test
-    void mustNotSavePayment_WhenCustomerIdIsNull() {
-        savePaymentDTO.setCustomerId(null);
+    void mustNotSavePayment_WhenOrderIdIsNull() {
+        savePaymentDTO.setOrderId(null);
 
         assertThatThrownBy(() -> PaymentUseCase.save(savePaymentDTO, paymentGateway))
                 .isInstanceOf(BusinessException.class)

@@ -7,7 +7,7 @@ import java.util.UUID;
 public class Payment {
 
     private UUID id;
-    private Long customerId;
+    private Long orderId;
     private BigDecimal value;
     private Date dateCreated;
 
@@ -19,12 +19,12 @@ public class Payment {
         this.id = id;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public BigDecimal getValue() {
