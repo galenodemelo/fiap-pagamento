@@ -30,11 +30,11 @@ public class DynamoDBConfig {
     @Value("${aws.dynamodb.endpoint}")
     private String endpoint;
 
-    @Value("${aws.dynamodb.accessKey}")
-    private String accessKey;
-
-    @Value("${aws.dynamodb.secretKey}")
-    private String secretKey;
+//    @Value("${aws.dynamodb.accessKey}")
+//    private String accessKey;
+//
+//    @Value("${aws.dynamodb.secretKey}")
+//    private String secretKey;
 
     @Bean
     @Primary
