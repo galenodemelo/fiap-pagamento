@@ -20,8 +20,11 @@ public class PaymentGateway implements IPaymentGateway {
 
     private final PaymentDatabaseConnection paymentDatabaseConnection;
 
+    private final MessageBroker messageBroker;
+
     public PaymentGateway(PaymentDatabaseConnection paymentDatabaseConnection) {
         this.paymentDatabaseConnection = paymentDatabaseConnection;
+        this.messageBroker = new SqsMessageBroker("response-q");
     }
 
     @Override
@@ -33,15 +36,37 @@ public class PaymentGateway implements IPaymentGateway {
 
         paymentJpa = this.paymentDatabaseConnection.save(paymentJpa);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonData = objectMapper.writeValueAsString(new ServiceResponseQueueDTO(
+        String jsonData = toJson(new ServiceResponseQueueDTO(
             ServiceResponseQueueType.ORDER_PAYMENT_FINISHED,
             Map.of("orderId", payment.getOrderId())
         ));
 
-        MessageBroker messageBroker = new SqsMessageBroker("response-q");
         messageBroker.send(jsonData);
 
         return PaymentMapper.INSTANCE.toPayment(paymentJpa);
+    }
+
+    @Override
+    public void fail(Payment payment) throws JsonProcessingException {
+        String jsonData = toJson(new ServiceResponseQueueDTO(
+                ServiceResponseQueueType.ORDER_PAYMENT_FAILED,
+                Map.of("orderId", payment.getOrderId())
+        ));
+
+        messageBroker.send(jsonData);
+    }
+
+    @Override
+    public void refund(Payment payment) throws JsonProcessingException {
+        String jsonData = toJson(new ServiceResponseQueueDTO(
+                ServiceResponseQueueType.ORDER_PAYMENT_REFUNDED,
+                Map.of("orderId", payment.getOrderId())
+        ));
+
+        messageBroker.send(jsonData);
+    }
+
+    private String toJson(ServiceResponseQueueDTO data) throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(data);
     }
 }
