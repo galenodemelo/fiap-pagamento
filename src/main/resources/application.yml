@@ -3,6 +3,6 @@ server:
 aws:
   region: us-east-1
   dynamodb:
-    endpoint: vpce-0fc7d4a53440e4ac1-f8ax5u6m.dynamodb.us-east-1.vpce.amazonaws.com
+    endpoint: http://vpce-0fc7d4a53440e4ac1-f8ax5u6m.dynamodb.us-east-1.vpce.amazonaws.com
 #    accessKey: local
 #    secretKey: local
