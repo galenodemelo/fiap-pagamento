@@ -57,7 +57,7 @@ public class DynamoDBConfig {
         return AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, awsRegion))
-                .withRegion(Regions.fromName(awsRegion)).build();
+                .build();
     }
 
     @Bean
