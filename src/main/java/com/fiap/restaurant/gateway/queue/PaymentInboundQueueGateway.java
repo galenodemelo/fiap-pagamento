@@ -1,5 +1,6 @@
 package com.fiap.restaurant.gateway.queue;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fiap.restaurant.controller.PaymentController;
 import com.fiap.restaurant.types.db.PaymentDatabaseConnection;
 import com.fiap.restaurant.types.dto.SavePaymentDTO;
@@ -16,13 +17,13 @@ public class PaymentInboundQueueGateway {
     }
 
     @SqsListener("payment-q")
-    public void receiveMessage(SavePaymentDTO savePaymentDTO) {
+    public void receiveMessage(SavePaymentDTO savePaymentDTO) throws JsonProcessingException {
         System.out.println("Recebendo mensagem de pagamento para o pedido " + savePaymentDTO.getOrderId());
         PaymentController.save(savePaymentDTO, paymentDatabaseConnection);
     }
 
     @SqsListener("payment-refund-q")
-    public void receiveRefundMessage(SavePaymentDTO savePaymentDTO) {
+    public void receiveRefundMessage(SavePaymentDTO savePaymentDTO) throws JsonProcessingException {
         System.out.println("Recebendo mensagem de estorno para o pedido " + savePaymentDTO.getOrderId());
         PaymentController.refund(savePaymentDTO, paymentDatabaseConnection);
     }

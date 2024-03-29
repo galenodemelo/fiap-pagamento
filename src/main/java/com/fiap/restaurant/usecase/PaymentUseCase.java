@@ -1,5 +1,6 @@
 package com.fiap.restaurant.usecase;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fiap.restaurant.entity.Payment;
 import com.fiap.restaurant.gateway.IPaymentGateway;
 import com.fiap.restaurant.types.dto.SavePaymentDTO;
@@ -10,40 +11,41 @@ import java.util.Date;
 
 public class PaymentUseCase {
 
-    public static Payment save(SavePaymentDTO savePaymentDTO, IPaymentGateway paymentGateway) {
+    public static void save(SavePaymentDTO savePaymentDTO, IPaymentGateway paymentGateway) throws JsonProcessingException {
+        Payment payment = buildPayment(savePaymentDTO);
+
         try {
-            Payment payment = getAndValidatePayment(savePaymentDTO);
-            return paymentGateway.save(payment);
+            validatePayment(payment);
+            paymentGateway.save(payment);
         } catch (Exception exception) {
-            throw new BusinessException(exception.getMessage());
+            paymentGateway.fail(payment);
+            System.out.println(exception.getMessage());
         }
     }
 
-    public static Payment refund(SavePaymentDTO savePaymentDTO, IPaymentGateway paymentGateway) {
+    public static void refund(SavePaymentDTO savePaymentDTO, IPaymentGateway paymentGateway) throws JsonProcessingException {
+        Payment payment = buildPayment(savePaymentDTO);
         try {
-            Payment payment = getAndValidatePayment(savePaymentDTO);
+            validatePayment(payment);
             paymentGateway.refund(payment);
-
-            return payment;
         } catch (Exception exception) {
-            throw new BusinessException(exception.getMessage());
+            paymentGateway.fail(payment);
+            System.out.println(exception.getMessage());
         }
     }
 
-    private static Payment getAndValidatePayment(SavePaymentDTO savePaymentDTO) {
-        Long orderId = savePaymentDTO.getOrderId();
-        if (orderId == null) throw new BusinessException("Id do cliente não pode ser nulo");
-
-        BigDecimal value = savePaymentDTO.getValue();
-        if (value == null) throw new BusinessException("Valor não pode ser nulo");
-        if (value.compareTo(BigDecimal.ZERO) <= 0.0)
-            throw new BusinessException("Valor não pode ser zero ou negativo");
-
+    private static Payment buildPayment(SavePaymentDTO savePaymentDTO) {
         Payment payment = new Payment();
-        payment.setOrderId(orderId);
-        payment.setValue(value);
+        payment.setOrderId(savePaymentDTO.getOrderId());
+        payment.setValue(savePaymentDTO.getValue());
         payment.setDateCreated(new Date());
 
         return payment;
+    }
+
+    private static void validatePayment(Payment payment) {
+        if (payment.getOrderId() == null) throw new BusinessException("Id do cliente não pode ser nulo");
+        if (payment.getValue() == null) throw new BusinessException("Valor não pode ser nulo");
+        if (payment.getValue().compareTo(BigDecimal.ZERO) <= 0.0) throw new BusinessException("Valor não pode ser zero ou negativo");
     }
 }
