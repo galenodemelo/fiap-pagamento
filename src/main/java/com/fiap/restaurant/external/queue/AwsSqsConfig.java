@@ -7,6 +7,8 @@ import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 
+import java.net.URI;
+
 @Configuration
 public class AwsSqsConfig {
 
@@ -15,6 +17,7 @@ public class AwsSqsConfig {
         return SqsAsyncClient
                 .builder()
                 .region(Region.US_EAST_1)
+                .endpointOverride(URI.create("http://localhost:4566"))
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .build();
     }

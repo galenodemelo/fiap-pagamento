@@ -27,6 +27,7 @@ public class SqsMessageBroker implements MessageBroker {
         return SqsClient.builder()
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .region(Region.US_EAST_1)
+                .endpointOverride(URI.create("http://localhost:4566"))
                 .build();
     }
 }
